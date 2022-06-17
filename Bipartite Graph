@@ -1,0 +1,45 @@
+bool bipartitedfs(int node, vector<int> adj[], int col[])
+{
+    if (col[node] == -1)
+    {
+        col[node] = 1;
+    }
+
+    for (auto it : adj[node])
+    {
+        if (col[it] == -1)
+        {
+            col[it] = 1 - col[node];
+
+            if (!bipartitedfs(it, adj, col))
+            {
+                return false;
+            }
+        }
+        else
+        {
+            if (col[it] == col[node])
+            {
+                return false;
+            }
+        }
+    }
+
+    return true;
+}
+
+bool isBipartite(int n, vector<int> adj[])
+{
+    int col[n];
+    memset(col, -1, sizeof(col));
+
+    for (int i = 0; i < n; i++)
+    {
+        if (!bipartitedfs(i, adj, col))
+        {
+            return false;
+        }
+    }
+
+    return true;
+}
