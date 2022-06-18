@@ -1,0 +1,42 @@
+
+void solve(vector<vector<int>> &a, int i, int j, int x, int y, int cnt, int &ans)
+{
+    int n = a.size(), m = a[0].size();
+
+    if (i < 0 or i >= n or j < 0 or j >= m or a[i][j] == 0)
+    {
+        return;
+    }
+
+    if (i == x and j == y)
+    {
+        ans = max(ans, cnt);
+        return;
+    }
+
+    int k = a[i][j];
+    a[i][j] = 0;
+
+    solve(a, i + 1, j, x, y, cnt + 1, ans);
+    solve(a, i - 1, j, x, y, cnt + 1, ans);
+    solve(a, i, j + 1, x, y, cnt + 1, ans);
+    solve(a, i, j - 1, x, y, cnt + 1, ans);
+
+    a[i][j] = k;
+}
+int longestPath(vector<vector<int>> a, int xs, int ys, int xd, int yd)
+{
+    int n = a.size(), m = a[0].size();
+
+    int ans = INT_MIN;
+    int cnt = 0;
+
+    solve(a, xs, ys, xd, yd, cnt, ans);
+
+    if (ans == INT_MIN)
+    {
+        return -1;
+    }
+
+    return ans;
+}
