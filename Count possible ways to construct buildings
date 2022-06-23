@@ -1,0 +1,15 @@
+long long int m = 1e9 + 7;
+int TotalWays(int n)
+{
+    long long int pre = 1;
+    long long int cur = 2;
+    long long int temp;
+    for (int i = 2; i <= n; i++)
+    {
+        temp = (pre + cur) % m;
+        pre = cur;
+        cur = temp;
+    }
+
+    return (cur % m * cur % m) % m;
+}
