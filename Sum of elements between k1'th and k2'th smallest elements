@@ -1,0 +1,27 @@
+// C++ SOLUTION (USING PRIORITY QUEUE )
+// T.C. - O(N)
+long long sumBetweenTwoKth(long long a[], long long n, long long k1, long long k2)
+{
+    k2--;
+    priority_queue<long long> pq;
+
+    for (long long i = 0; i < n; i++)
+    {
+        pq.push(a[i]);
+        if (pq.size() > k2)
+        {
+            pq.pop();
+        }
+    }
+
+    long long d = k2 - k1;
+
+    long long sum = 0;
+    while (d--)
+    {
+        sum += pq.top();
+        pq.pop();
+    }
+
+    return sum;
+}
